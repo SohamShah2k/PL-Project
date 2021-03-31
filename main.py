@@ -1,8 +1,10 @@
 from tkinter import *
+
 import login as l
 import register as r
 import landing as ld
-
+from tkinter import ttk
+from ttkthemes import themed_tk as tk
 
 def put(*l):
     for i in l:
@@ -26,20 +28,23 @@ class main():
         userx.reg()
 
     def __init__(self):
-        a = Tk()
+        a = tk.ThemedTk()
+        a.geometry('1280x720')
+        a.get_themes()
+        a.set_theme('radiance')
         self.a = a
         self.uname = StringVar()
         self.password = StringVar()
         user = Frame(a)
-        ul = Label(user, text="Enter Username")
+        ul = ttk.Label(user, text="Enter Username")
         ue = Entry(user, textvariable=self.uname)
         putl(ul, ue)
         pwd = Frame(a)
-        pl = Label(pwd, text='Enter Password:')
+        pl = ttk.Label(pwd, text='Enter Password:')
         pe = Entry(pwd, textvariable=self.password, show="*")
         putl(pl, pe)
-        loginbut = Button(a, text='Login', command=self.log)
-        registerbut = Button(a, text='Register', command=self.reg)
+        loginbut = ttk.Button(a, text='Login', command=self.log)
+        registerbut = ttk.Button(a, text='Register', command=self.reg)
         put(user, pwd, loginbut, registerbut)
         a.mainloop()
 if __name__ == "__main__":

@@ -1,17 +1,21 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import ttk
 from HistoricalAnomaly import HistoricalAnomaly
 from RealTime import RealTime
+from tkinter import ttk
+from ttkthemes import themed_tk as tk1
+
 
 #import RealGraph as rg
 #from RealGraph import RealGraph
 #import matplotlib.animation as animation
 
-class landing(tk.Tk):
+class landing(tk1.ThemedTk):
     def __init__(self, uname,anime ,*args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
+        tk1.ThemedTk.__init__(self, *args, **kwargs)
         self.uname = uname
-        window = Frame(self)
+        window = ttk.Frame(self)
         self.anime = anime
         self.window = window
         self.HistoricalAnomaly = HistoricalAnomaly
@@ -31,18 +35,23 @@ class landing(tk.Tk):
         page = sel(self.window,self)
         page.grid(row=0, column=0, sticky="nsew")
 
-class Landing(tk.Frame):
+class Landing(ttk.Frame):
 
     def __init__(self,window,obj):
-        tk.Frame.__init__(self,window)
-        l = Label(self, text=" Welcome  {} ".format(obj.uname)).pack(side=TOP)
-        bb = Button(self,text="Check Historical Anomalies",command=lambda: obj.display_page(HistoricalAnomaly)).pack()#, command=lambda: obj.display_page(Buy)
-        bs = Button(self, text="Check Real time prices/anomalies",command=lambda: obj.display_page(RealTime)).pack()#, command=lambda: obj.display_page(Sell)
+        ttk.Frame.__init__(self,window)
+        l = ttk.Label(self, text=" Welcome  {} ".format(obj.uname)).pack(side=TOP)
+        bb = ttk.Button(self,text="Check Historical Anomalies",command=lambda: obj.display_page(HistoricalAnomaly)).pack()#, command=lambda: obj.display_page(Buy)
+        bs = ttk.Button(self, text="Check Real time prices/anomalies",command=lambda: obj.display_page(RealTime)).pack()#, command=lambda: obj.display_page(Sell)
 
 
 class land():
     def __init__(self,uname):
+
         landp = landing(uname,self)
+        landp.geometry('680x480')
+        landp.get_themes()
+        landp.set_theme('radiance')
         landp.title("Landing page")
         #ani = animation.FuncAnimation(rg.f, rg.animate, interval=1000)
         landp.mainloop()
+##C:\gui\ary(1)

@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 import csv
 import sklearn.model_selection as sk
 import numpy as np
-from plotly.subplots import make_subplots
+##from plotly.subplots import make_subplots
 from db_connect import mysql as ms
 class HistGraph():
     def __init__(self,coi):
