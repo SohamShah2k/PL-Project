@@ -7,8 +7,9 @@ class login():
 
     def log(self,uname,password):
         try:
-            lmycursor.execute('select user_name,password from users where user_name = %s and password = %s ',(uname,password))
-            #unm,pwd = lmycursor.fetchall()[0]
+            sql = 'select user_name,password from users where user_name = \"{}\" and password = \"{}\" '
+            lmycursor.execute(sql.format(uname,password))
+            unm,pwd = lmycursor.fetchall()[0]
 
         except:
             msg = Tk()
