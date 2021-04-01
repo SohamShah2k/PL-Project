@@ -1,6 +1,8 @@
 import mysql.connector as mc
 
 class mysql():
+    font = ("Helvetica", 20)
+    color = '#dbdbdb'
     def __init__(self):
         self.mydb = mc.connect(
             host="localhost",
