@@ -1,14 +1,10 @@
 import matplotlib
-
-
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 import matplotlib.animation as animation
 from matplotlib import style
 
 import tkinter as tk
-from tkinter import ttk
-
 
 import json
 import datetime
@@ -28,6 +24,7 @@ a = f.add_subplot(111)
 
 
 def animate(i,sensitivity):
+    print(i)
     print(coin)
     url = "https://poloniex.com/public?command=returnTradeHistory&currencyPair=USDC_{}&start={}"
     date = datetime.datetime.now() - datetime.timedelta(minutes=450)

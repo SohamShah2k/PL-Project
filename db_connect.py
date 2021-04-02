@@ -15,7 +15,7 @@ class mysql():
         self.currencies = {
             "Bitcoin": ('BTC', "2018-05-15"),
             "Etherium": ('ETH', "2019-04-04"),
-            "Ripple's XRP":('XRP', "2018-05-16"),
-            "Dash":('DASH','2018-05-16')
+            "Ripple's XRP": ('XRP', "2018-05-16"),
+            "Dash": ('DASH', '2018-05-16')
 
         }

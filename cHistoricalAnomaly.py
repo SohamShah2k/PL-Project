@@ -29,7 +29,6 @@ class HistoricalAnomaly(ttk.Frame):
         bb = ttk.Button(window, text="Landing", width=15,command=lambda: obj.display_page(obj.Landing))  # .pack(side=LEFT)
         bd = ttk.Button(window, text="Trade", width=15,command=lambda: obj.display_page(obj.Trade))  # .pack(side=LEFT)
 
-        bd = ttk.Button(window, text="Landing", command=lambda: obj.display_page(obj.Landing))  # .pack(side=LEFT)
         bt = ttk.Button(window, text="Realtime Graph",command=lambda: obj.display_page(obj.RealTime))  # .pack(side=LEFT)
         hg_can.create_window(450, 100, anchor='w', window=bb)
         hg_can.create_window(650, 100, anchor='w', window=bd)

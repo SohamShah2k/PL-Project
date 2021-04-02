@@ -1,11 +1,7 @@
-import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-from tkcalendar import *
 from db_connect import mysql as ms
-from ttkthemes import themed_tk as tk1
 import datetime
-from cHistGraph import HistGraph
 from PIL import Image,ImageTk
 import json
 import urllib.request as req
@@ -18,8 +14,7 @@ class Trade(ttk.Frame):
         ttk.Frame.__init__(self, window)
 
         self.sql = ms()
-        self.mycursor = self.sql.mycursor
-        self.db = self.sql.mydb
+
         self.uname = obj.uname
 
         bg = Image.open('a.png')
@@ -49,8 +44,11 @@ class Trade(ttk.Frame):
 
         sel1 = ttk.Combobox(window, values=list(currencies.keys()), textvariable=c_sel)
         hg_can.create_window(600, 300, anchor='w', window=sel1)
-
+        self.price_text = hg_can.create_text(0,0, text="")
+        self.qty_text = hg_can.create_text(0,0, text="")
         def coin_sel(c_sel):
+            self.mycursor = self.sql.mycursor
+            self.db = self.sql.mydb
             self.coin = c_sel
             url = 'https://poloniex.com/public?command=returnTicker'
             self.coi = currencies[c_sel][0]
@@ -59,11 +57,13 @@ class Trade(ttk.Frame):
             data = json.load(json_obj)
             df = pd.DataFrame(data)
             self.price = (round((pd.to_numeric(df['USDT_{}'.format(self.coi)]['last'])),2))
-            self.mycursor.execute("select qty from user_has where user_name = \"{}\" and crypto_name = \"{}\"".format(obj.uname,self.coi))
+            self.mycursor.execute("select IFNULL((select qty from user_has where user_name = \"{}\" and crypto_name = \"{}\"),0);".format(obj.uname,self.coi))
             self.uhas = self.mycursor.fetchone()[0]
             print(self.uhas)
-            hg_can.create_text(600, 400, anchor='w', text="$ {}".format(self.price), fill=ms.color, font=ms.font)
-            hg_can.create_text(600, 500, anchor='w', text="{} ".format(self.uhas), fill=ms.color, font=ms.font)
+            hg_can.delete(self.price_text,self.qty_text)
+            self.price_text = hg_can.create_text(600, 400, anchor='w', text="$ {}".format(self.price), fill=ms.color, font=ms.font)
+            self.qty_text = hg_can.create_text(600, 500, anchor='w', text="{} ".format(self.uhas), fill=ms.color, font=ms.font)
+            self.db.commit()
 
         selb = ttk.Button(window, text="Select", command=lambda: coin_sel(c_sel.get()))
         hg_can.create_window(850, 300, window=selb)

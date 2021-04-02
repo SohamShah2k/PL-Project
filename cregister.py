@@ -20,7 +20,7 @@ class register():
 
         r_can = Canvas(r, width=480, height=720)
         r_can.image = ImageTk.PhotoImage(bg)
-        r_can.create_image(0, 0, image=r_can.image, anchor='nw')
+        r_can.create_image(-400, 0, image=r_can.image, anchor='nw')
         r_can.grid(row=0, column=0, sticky="ns")
 
         self.uev=StringVar()

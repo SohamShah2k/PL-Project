@@ -4,11 +4,9 @@ pd.options.mode.chained_assignment = None
 import datetime
 from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import StandardScaler
-import csv
-import sklearn.model_selection as sk
 import numpy as np
-##from plotly.subplots import make_subplots
 from db_connect import mysql as ms
+
 class HistGraph():
     def __init__(self,coi):
         coin = coi  # input("Enter coin")
@@ -82,13 +80,15 @@ class HistGraph():
         ax1 = plt.subplot()
         ax2 = ax1.twinx()
         ax1.plot_date(df['date'], df['high'], color='#000000', label='price',linestyle="solid",marker ="None")
-        ax1.plot_date(df['date'], df['mav'], color='#888888', label='price',linestyle="solid",marker ="None")
-        ax1.plot_date(df['date'], df['anomaly'], marker='.', color='#FFFF00',linestyle="None")
-        ax1.plot(cluster_date, cluster_price, marker='^', linestyle="None", color='#FF0000')
-        ax2.plot(df['date'], df['Volume USDT'], color='#00FF00')
+        ax1.plot_date(df['date'], df['mav'], color='#888888', label='moving average price',linestyle="solid",marker ="None")
+        ax1.plot_date(df['date'], df['anomaly'], marker='.', color='#FFFF00',linestyle="None",label='anomolous points')
+        ax1.plot(cluster_date, cluster_price, marker='^', linestyle="None", color='#FF0000',label='cluster of anomolous points classified as a P&D')
+        ax2.plot(df['date'], df['Volume USDT'], color='#00FF00',label = 'Volume of trade')
         ax2.set_yticks([0, 1 * max_value, 2 * max_value, 3 * max_value, 4 * max_value])
         ax1.set_ylabel('Price vs USD')
         ax2.set_ylabel('Volume in Thousands')
         ax1.set_xlabel('Time->')
+        ax1.legend()
+        ax2.legend()
         plt.title('{} VS USD'.format(coin))
         plt.show()
